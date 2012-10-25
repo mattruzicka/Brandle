@@ -1,10 +1,14 @@
 class Concept
-  attr_accessor :name, :links
+  attr_accessor :name, :links, :entry
   
   def initialize(name)
     @name = name
     @links = build_links(@name)
-    collect_thoughts(@links) unless @links.nil?
+    @entry = ""
+    unless @links.nil? || @links.empty?
+      collect_thoughts(@links)
+      $redis.sadd("concept:#{name}", @links)
+    end
   end
  
   private
@@ -16,7 +20,6 @@ class Concept
       links << link.content unless unwanted(link)
     end
     links = links[0..2] << links[3..-1].sample unless links[3..-1].nil?
-    return nil if links.nil? 
   end
   
   def unwanted(link)
@@ -48,7 +51,10 @@ class Concept
         thoughts << status.full_text
       end
       thoughts.uniq!
-      augment_dictionary(thoughts)
+      unless thoughts.empty?
+        @entry << thoughts.sample.to_s + " "
+        augment_dictionary(thoughts)
+      end
     end
   end
   
@@ -57,5 +63,4 @@ class Concept
       thoughts.each { |t| f.puts(t) }
     end
   end
-  
 end

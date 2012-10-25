@@ -4,7 +4,7 @@ module Write
     letters.each do |letter|
       print letter
       $stdout.flush
-      sleep 0.07
+      sleep 0.05
       stutter? # would be cool to pass in some letters, type in wrong letters, then go back and type the right ones. 
     end
     pause_chatter
@@ -12,13 +12,14 @@ module Write
   end
 
   def pause_chatter
-    if (1..3).to_a.sample == 3
-      print " "
-      sleep (0..2).to_a.sample
-    else
-      sleep (0..8).to_a.sample
+    if (0..1).to_a.sample == 0
       puts " "
-      sleep (0..8).to_a.sample 
+      sleep 0.5
+      puts " "
+    else
+      sleep (0..1).to_a.sample
+      puts " "
+      sleep (0..1).to_a.sample 
       puts " "
       sleep 0.5
     end
