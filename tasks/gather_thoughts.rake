@@ -1,3 +1,7 @@
+task :gather_input => :environment do 
+  puts "What would like to talk about?"
+end
+
 task :gather_thoughts => :environment do
   while sleep 5
     concepts = Concept.ungathered
