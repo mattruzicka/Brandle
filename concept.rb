@@ -59,7 +59,7 @@ class Concept
   end
   
   def augment_dictionary(thoughts)
-    File.open('config/dictionary.txt', 'a') do |f|
+    File.open('lib/dictionary.txt', 'a') do |f|
       thoughts.each { |t| f.puts(t) }
     end
   end

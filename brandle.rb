@@ -3,12 +3,14 @@ require './concept'
 
 include Write
 
-while sleep 1
+while true
   name = gets.chomp
   unless name.nil? || name.empty? || name =~ /^\s+$/
     concept = Concept.new(name)
     if concept.links.nil?
       puts "Sorry, I don't know much about #{concept.name}"
+      puts " "
+      puts " "
     else
       # print concept.links
       # puts ""
