@@ -1,5 +1,6 @@
 module Write
   def write
+    tab
     letters = self.split("")
     space = 0
     letters.each do |letter|
@@ -8,28 +9,19 @@ module Write
       sleep 0.05
       stutter? # would be cool to pass in some letters, type in wrong letters, then go back and type the right ones. 
       space += 1
-      if space > 80 && letter == " "
+      if space > 70 && letter == " "
         print "\n"
+        tab
         space = 0
       end
     end
-    pause_chatter
+    sleep 0.5
+    puts "\n"
+    sleep 0.5
+    puts "\n"
     return nil
   end
 
-  def pause_chatter
-    if (0..1).to_a.sample == 0
-      puts " "
-      sleep 0.5
-      puts " "
-    else
-      sleep (0..1).to_a.sample
-      puts " "
-      sleep (0..1).to_a.sample 
-      puts " "
-      sleep 0.5
-    end
-  end
 
   def stutter?
     case (1..300).to_a.sample
@@ -42,4 +34,9 @@ module Write
     when 130 then sleep 1.2
     end
   end
+  
+  def tab
+    print "        "
+  end
 end
+

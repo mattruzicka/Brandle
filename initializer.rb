@@ -25,3 +25,8 @@ require 'term/ansicolor'
 class String
   include Term::ANSIColor
 end
+
+require 'gabbler'
+$gabbler = Gabbler.new
+dictionary = File.read('lib/dictionary.txt')
+$gabbler.learn(dictionary)

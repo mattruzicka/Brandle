@@ -26,8 +26,10 @@ class Concept
     links.each do |link|
       thoughts = []
       Twitter.search(%Q{"#{link}" -rt -http}, :count => 100, :result_type => "recent").results.map do |status|
-        status = sanitize(status.full_text)
-        thoughts << status
+        unless status.full_text.nil?
+          status = sanitize(status.full_text)
+          thoughts << status
+        end
       end
       thoughts.uniq!
       unless thoughts.empty?
@@ -40,11 +42,11 @@ class Concept
   def sanitize(status)
     words = status.split
     
-    while words.first.match(/@\w+/) 
+    while !words.first.nil? && words.first.match(/@\w+/)
       words.delete_at(0)
     end
-    
-    while words.last.match(/@\w+/) 
+  
+    while !words.last.nil? && words.last.match(/@\w+/)
       words.delete_at(-1)
     end
     
