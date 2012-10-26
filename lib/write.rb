@@ -7,7 +7,7 @@ module Write
       print letter.black
       $stdout.flush
       sleep 0.05
-      stutter? # would be cool to pass in some letters, type in wrong letters, then go back and type the right ones. 
+      stutter? 
       space += 1
       if space > 70 && letter == " "
         print "\n"
@@ -39,4 +39,6 @@ module Write
     print "        "
   end
 end
+
+# name.length.times { |i| $stdout.write "\n\r\r"; sleep 1}
 

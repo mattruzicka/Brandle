@@ -28,6 +28,3 @@ while true
     end
   end
 end
-
-
- #   name.length.times { |i| $stdout.write "\n\r\r"; sleep 1}

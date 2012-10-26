@@ -4,6 +4,7 @@ Bundler.setup
 
 require 'open-uri'
 require 'nokogiri'
+require 'gabbler' 
 
 Dir["./lib/*.rb"].each {|file| require file }
 
@@ -25,8 +26,3 @@ require 'term/ansicolor'
 class String
   include Term::ANSIColor
 end
-
-require 'gabbler'
-$gabbler = Gabbler.new
-dictionary = File.read('lib/dictionary.txt')
-$gabbler.learn(dictionary)
