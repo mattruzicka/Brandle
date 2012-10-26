@@ -2,7 +2,7 @@ class Concept
   attr_accessor :name, :links, :entry
   
   def initialize(name)
-    @name = name
+    @name = name.gsub!(/[?.!,;]?$/, '')
     @links = build_links(@name)
     @entry = ""
     unless @links.nil? || @links.empty?
@@ -20,6 +20,50 @@ class Concept
       links << link.content unless unwanted(link)
     end
     links = links[0..2] << links[3..-1].sample unless links[3..-1].nil?
+  end
+  
+  def collect_thoughts(links)
+    links.each do |link|
+      thoughts = []
+      Twitter.search(%Q{"#{link}" -rt -http}, :count => 100, :result_type => "recent").results.map do |status|
+        status = sanitize(status.full_text)
+        thoughts << status
+      end
+      thoughts.uniq!
+      unless thoughts.empty?
+        @entry << thoughts.sample.to_s + " "
+        augment_dictionary(thoughts)
+      end
+    end
+  end
+  
+  def sanitize(status)
+    words = status.split
+    
+    while words.first.match(/@\w+/) 
+      words.delete_at(0)
+    end
+    
+    while words.last.match(/@\w+/) 
+      words.delete_at(-1)
+    end
+    
+    words.each do |word|
+      word.delete!('@') if word.match(/@\w+/)
+      word.delete!('#') if word.match(/#\w+/)
+      word.gsub!(/http\S+/, "")
+    end
+    
+    status = words.join(" ")
+    status = $coder.decode(status)
+    status.strip!
+    status
+  end
+  
+  def augment_dictionary(thoughts)
+    File.open('lib/dictionary.txt', 'a') do |f|
+      thoughts.each { |t| f.puts(t) }
+    end
   end
   
   def unwanted(link)
@@ -44,23 +88,4 @@ class Concept
     end
   end
   
-  def collect_thoughts(links)
-    links.each do |link|
-      thoughts = []
-      Twitter.search(%Q{"#{link}" -rt -http}, :count => 100, :result_type => "recent").results.map do |status|
-        thoughts << status.full_text
-      end
-      thoughts.uniq!
-      unless thoughts.empty?
-        @entry << thoughts.sample.to_s + " "
-        augment_dictionary(thoughts)
-      end
-    end
-  end
-  
-  def augment_dictionary(thoughts)
-    File.open('lib/dictionary.txt', 'a') do |f|
-      thoughts.each { |t| f.puts(t) }
-    end
-  end
 end

@@ -1,11 +1,17 @@
 module Write
   def write
     letters = self.split("")
+    space = 0
     letters.each do |letter|
-      print letter
+      print letter.black
       $stdout.flush
       sleep 0.05
       stutter? # would be cool to pass in some letters, type in wrong letters, then go back and type the right ones. 
+      space += 1
+      if space > 80 && letter == " "
+        print "\n"
+        space = 0
+      end
     end
     pause_chatter
     return nil

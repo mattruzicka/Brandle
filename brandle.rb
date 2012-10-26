@@ -6,17 +6,22 @@ include Write
 while true
   name = gets.chomp
   unless name.nil? || name.empty? || name =~ /^\s+$/
-    concept = Concept.new(name)
+    begin 
+      concept = Concept.new(name) 
+    rescue
+      puts "That one hurt my brain..." 
+      puts "\n\n"
+      next
+    end 
+    
     if concept.links.nil?
       puts "Sorry, I don't know much about #{concept.name}"
-      puts " "
-      puts " "
+      puts "\n\n"
     else
-      # print concept.links
-      # puts ""
       puts concept.entry.write
     end
   end
 end
 
 
+ #   name.length.times { |i| $stdout.write "\n\r\r"; sleep 1}

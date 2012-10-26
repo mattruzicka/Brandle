@@ -6,6 +6,7 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     gabbler (0.1.0)
+    htmlentities (4.3.1)
     multi_json (1.3.6)
     multipart-post (1.1.5)
     nokogiri (1.5.5)
@@ -18,6 +19,7 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
+    term-ansicolor (1.0.7)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -33,8 +35,10 @@ PLATFORMS
 
 DEPENDENCIES
   gabbler (~> 0.1.0)
+  htmlentities (~> 4.3.1)
   nokogiri (~> 1.5.5)
   redis (~> 3.0.2)
   sinatra
+  term-ansicolor (~> 1.0.7)
   thin
   twitter
