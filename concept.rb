@@ -5,9 +5,10 @@ class Concept
     @name = name.gsub!(/[?.!,;]?$/, '')
     @links = build_links(@name)
     @entry = ""
+    $redis.sadd("concepts", @name)
     unless @links.nil? || @links.empty?
       collect_thoughts(@links)
-      $redis.sadd("concept:#{name}", @links)
+      $redis.sadd("concepts:#{@name}", @links)
     end
   end
  

@@ -25,6 +25,10 @@ while true
       puts "\n\n"
     else
       puts concept.entry.write
+      # puts "Concepts"
+      # print $redis.smembers("concepts")
+      # puts "\n#{concept.name} links"
+      # print $redis.smembers("concept:#{concept.name} \n\n")
     end
   end
 end

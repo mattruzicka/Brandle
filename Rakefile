@@ -9,7 +9,7 @@ task :think => :environment do
   puts "\n\n"
   print "        o_o\n".green
   brandle_learn
-  while sleep (1..40).to_a.sample
+  while sleep (1..60).to_a.sample
     thoughts = ""
     (1..8).to_a.sample.times do
       thought = @gabbler.sentence

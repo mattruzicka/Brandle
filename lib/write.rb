@@ -7,7 +7,7 @@ module Write
       print letter.black
       $stdout.flush
       sleep 0.05
-      stutter? 
+      stutter?
       space += 1
       if space > 70 && letter == " "
         print "\n"
@@ -22,7 +22,6 @@ module Write
     return nil
   end
 
-
   def stutter?
     case (1..300).to_a.sample
     when 20 then sleep 0.02
@@ -30,8 +29,10 @@ module Write
     when 60 then sleep 0.06
     when 80 then sleep 0.08
     when 90 then sleep 0.09
+    when 100 then sleep 1
     when 110 then sleep 1.1
-    when 130 then sleep 1.2
+    when 120 then sleep 1.2
+    when 130 then sleep 1.3
     end
   end
   
@@ -39,6 +40,4 @@ module Write
     print "        "
   end
 end
-
-# name.length.times { |i| $stdout.write "\n\r\r"; sleep 1}
 
