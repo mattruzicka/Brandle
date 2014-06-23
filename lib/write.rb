@@ -4,10 +4,10 @@ module Write
     letters = self.split("")
     space = 0
     letters.each do |letter|
+      stutter if letter == ' '
       print letter.black
       $stdout.flush
-      sleep 0.05
-      stutter?
+      sleep [0.04, 0.05, 0.06, 0.07, 0.08].sample
       space += 1
       if space > 70 && letter == " "
         print "\n"
@@ -22,7 +22,7 @@ module Write
     return nil
   end
 
-  def stutter?
+  def stutter
     case (1..300).to_a.sample
     when 20 then sleep 0.02
     when 40 then sleep 0.04
